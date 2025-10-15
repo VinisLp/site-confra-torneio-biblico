@@ -1,5 +1,5 @@
 /* ======================================================= */
-/* STYLESHEET FINAL E ATUALIZADO               */
+/* STYLESHEET COMPLETO E ATUALIZADO                        */
 /* ======================================================= */
 
 /* --- 1. Variáveis de Cor e Fontes --- */
@@ -20,7 +20,6 @@
     --font-main: 'Open Sans', sans-serif;
     --font-headings: 'Merriweather', serif;
 }
-
 
 /* --- 2. Estilos Globais e de Corpo --- */
 * {
@@ -53,7 +52,6 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-
 /* --- 3. Layout Principal e Header --- */
 .container {
     width: 100%;
@@ -74,6 +72,7 @@ header {
     box-shadow: var(--shadow);
     transition: transform 0.3s ease;
 }
+
 .profile-picture:hover {
     transform: scale(1.05);
 }
@@ -91,7 +90,6 @@ header p {
     opacity: 0.9;
     margin: 0;
 }
-
 
 /* --- 4. Botões de Navegação Principal --- */
 .links {
@@ -129,10 +127,10 @@ header p {
     transform: translateY(-5px);
     box-shadow: var(--shadow);
 }
+
 .link-button:hover i {
     color: var(--text-dark);
 }
-
 
 /* --- 5. Seções de Conteúdo (Cards) --- */
 .content-section {
@@ -154,7 +152,8 @@ header p {
     font-weight: 700;
 }
 
-.content-section p.centered, .address-details p {
+.content-section p.centered,
+.address-details p {
     text-align: center;
     line-height: 1.8;
     opacity: 0.95;
@@ -162,17 +161,18 @@ header p {
     font-size: 1.1em;
 }
 
-
 /* --- 6. Formulário de Confirmação --- */
 .form-group {
     margin-bottom: 30px;
 }
+
 .form-group label {
     display: block;
     margin-bottom: 12px;
     font-weight: 600;
     font-size: 1.15em;
 }
+
 .form-group textarea,
 .form-group input[type="text"] {
     width: 100%;
@@ -185,16 +185,19 @@ header p {
     font-size: 1.05em;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
 .form-group textarea:focus,
 .form-group input[type="text"]:focus {
     outline: none;
     border-color: var(--primary-color);
 }
+
 .radio-group {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
+
 .radio-label {
     display: flex;
     align-items: center;
@@ -205,16 +208,20 @@ header p {
     cursor: pointer;
     transition: all 0.2s ease;
 }
+
 .radio-label:hover {
     border-color: var(--primary-color);
 }
+
 .radio-label input[type="radio"] {
     display: none;
 }
+
 .radio-label span {
     margin-left: 12px;
     font-size: 1.05em;
 }
+
 .radio-label .custom-radio {
     width: 22px;
     height: 22px;
@@ -224,9 +231,11 @@ header p {
     position: relative;
     flex-shrink: 0;
 }
+
 .radio-label input[type="radio"]:checked + .custom-radio {
     border-color: var(--primary-color);
 }
+
 .radio-label input[type="radio"]:checked + .custom-radio::after {
     content: '';
     width: 12px;
@@ -238,6 +247,7 @@ header p {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 .submit-button {
     display: inline-block;
     width: 100%;
@@ -252,18 +262,58 @@ header p {
     text-align: center;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 .submit-button:hover {
     background-color: var(--primary-hover);
     transform: translateY(-3px);
 }
 
+.submit-button.success {
+    background-color: var(--whatsapp-green);
+    color: #fff;
+    animation: button-pop 0.3s ease-out;
+}
+
+@keyframes button-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+#form-message .success-msg,
+#form-message .error-msg {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid;
+}
+
+#form-message .success-msg {
+    background-color: rgba(37, 211, 102, 0.1);
+    border-color: var(--whatsapp-green);
+    color: var(--whatsapp-green);
+}
+
+#form-message .error-msg {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-color: #dc3545;
+    color: #dc3545;
+}
 
 /* --- 7. Checklist ("O Que Levar") --- */
 .checklist-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 40px;
 }
+
+@media (min-width: 600px) {
+    .checklist-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
 .checklist-category h3 {
     font-family: var(--font-headings);
     font-size: 1.5em;
@@ -275,29 +325,47 @@ header p {
     align-items: center;
     gap: 12px;
 }
-.checklist-category ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+
+.checklist-items-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
-.checklist-category li {
-    font-size: 1.1em;
-    margin-bottom: 12px;
+
+.checklist-item {
+    background-color: var(--page-background);
+    border: 1px solid var(--border-color);
+    padding: 15px 20px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
+    gap: 15px;
+    font-size: 1.1em;
+    text-align: left;
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
-.checklist-category i {
+
+.checklist-item:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+}
+
+.checklist-item i {
     color: var(--primary-color);
-    margin-right: 15px;
-    width: 20px;
+    font-size: 1.2em;
+    width: 25px;
     text-align: center;
 }
 
+.checklist-item span {
+    flex: 1;
+}
 
 /* --- 8. Seção do Mapa --- */
 .address-details p {
     margin: 5px 0 25px 0;
 }
+
 .map-container {
     width: 100%;
     height: 350px;
@@ -306,16 +374,19 @@ header p {
     border: 2px solid var(--border-color);
     margin-bottom: 30px;
 }
+
 .map-container iframe {
     width: 100%;
     height: 100%;
     border: 0;
 }
+
 .route-buttons {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
+
 .map-button {
     display: flex;
     align-items: center;
@@ -328,13 +399,19 @@ header p {
     transition: all 0.3s ease;
     color: #fff;
 }
-.map-button.google { background-color: var(--google-blue); }
-.map-button.waze { background-color: var(--waze-blue); }
+
+.map-button.google {
+    background-color: var(--google-blue);
+}
+
+.map-button.waze {
+    background-color: var(--waze-blue);
+}
+
 .map-button:hover {
     transform: translateY(-3px);
     opacity: 0.9;
 }
-
 
 /* --- 9. Seção de Contato (Coordenadores) --- */
 .coordinators-grid {
@@ -343,6 +420,7 @@ header p {
     gap: 25px;
     margin-top: 20px;
 }
+
 .coordinator-card {
     background-color: var(--page-background);
     padding: 25px;
@@ -351,10 +429,12 @@ header p {
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .coordinator-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.5);
 }
+
 .coordinator-photo {
     width: 90px;
     height: 90px;
@@ -363,12 +443,14 @@ header p {
     object-fit: cover;
     margin-bottom: 15px;
 }
+
 .coordinator-name {
     font-family: var(--font-headings);
     font-size: 1.4em;
     margin: 0 0 20px 0;
     color: var(--text-light);
 }
+
 .whatsapp-btn {
     display: inline-block;
     background-color: var(--whatsapp-green);
@@ -379,26 +461,25 @@ header p {
     font-weight: 600;
     transition: background-color 0.3s ease;
 }
+
 .whatsapp-btn i {
     margin-right: 8px;
 }
+
 .whatsapp-btn:hover {
     background-color: #1DAE54;
 }
 
-
-/* --- 10. Galeria --- */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-}
-.gallery-grid img {
+/* --- 10. Imagem de Agradecimentos --- */
+.thanks-image {
     width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
     border: 2px solid var(--border-color);
+    margin: 30px auto;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* --- 11. Rodapé --- */
@@ -411,6 +492,7 @@ footer {
     max-width: 680px;
     border-top: 1px solid var(--border-color);
 }
+
 .social-links a {
     color: var(--primary-color);
     text-decoration: none;
@@ -419,11 +501,10 @@ footer {
     font-size: 1.1em;
 }
 
-/* --- 12. Créditos do Desenvolvedor --- */
 .developer-credit {
-    margin-top: 25px; 
-    font-size: 0.9em;  
-    color: var(--text-light); 
+    margin-top: 25px;
+    font-size: 0.9em;
+    color: var(--text-light);
 }
 
 .developer-credit .fa-heart {
@@ -431,21 +512,110 @@ footer {
     font-size: 0.9em;
 }
 
-
-/* --- 13. Responsividade --- */
-@media (min-width: 600px) {
-    .checklist-container {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
+/* --- 12. Responsividade Geral --- */
 @media (max-width: 600px) {
     .profile-picture {
         width: 120px;
         height: 120px;
     }
-    header h1 { font-size: 2em; }
-    .link-button { font-size: 1em; padding: 18px; }
-    .content-section { padding: 25px; }
-    .content-section h2 { font-size: 1.8em; }
+
+    header h1 {
+        font-size: 2em;
+    }
+
+    .link-button {
+        font-size: 1em;
+        padding: 18px;
+    }
+
+    .content-section {
+        padding: 25px;
+    }
+
+    .content-section h2 {
+        font-size: 1.8em;
+    }
+}
+
+/* --- 13. Estilos da Lista de Confirmados em Colunas --- */
+.confirmados-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.confirmado-header {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    gap: 15px;
+    padding: 10px 15px;
+    font-weight: bold;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    text-align: left;
+}
+
+.confirmado-item-grid {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    gap: 15px;
+    padding: 15px;
+    background-color: var(--page-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-align: left;
+    transition: background-color 0.2s;
+}
+
+.confirmado-item-grid:hover {
+    background-color: #0F2140;
+}
+
+.col-alergia {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+    font-size: 0.9em;
+    opacity: 0.8;
+    color: #ffc107;
+}
+
+.col-alergia i {
+    margin-right: 5px;
+}
+
+/* Responsividade para a Lista de Confirmados */
+@media (max-width: 600px) {
+    .confirmado-header {
+        display: none;
+    }
+
+    .confirmado-item-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 20px;
+    }
+
+    .confirmado-item-grid div::before {
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-right: 8px;
+    }
+
+    .col-nome::before {
+        content: "Nome: ";
+    }
+
+    .col-dias::before {
+        content: "Dias: ";
+    }
+
+    .col-contribuicao::before {
+        content: "Leva: ";
+    }
+
+    .col-alergia {
+        padding-left: 0;
+    }
 }
