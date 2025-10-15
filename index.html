@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -23,35 +23,18 @@
         </header>
 
         <main class="links">
-            <a href="#confirmar-presenca" class="link-button">
-                <i class="fas fa-check-circle"></i> Confirmar Presença
-            </a>
-            <a href="#lista-confirmados" class="link-button">
-                <i class="fas fa-users"></i> Ver Confirmados
-            </a>
-            <a href="#o-que-levar" class="link-button">
-                <i class="fas fa-suitcase-rolling"></i> O Que Levar
-            </a>
-            <a href="#local" class="link-button">
-                <i class="fas fa-map-marker-alt"></i> Local do Evento
-            </a>
-            <a href="#galeria" class="link-button">
-                <i class="fas fa-images"></i> Galeria de Fotos
-            </a>
-            <a href="#agradecimentos" class="link-button">
-                <i class="fas fa-heart"></i> Agradecimentos
-            </a>
-            <a href="#contato" class="link-button">
-                <i class="fas fa-comments"></i> Fale Conosco
-            </a>
+            <a href="#confirmar-presenca" class="link-button"><i class="fas fa-check-circle"></i> Confirmar Presença</a>
+            <a href="#lista-confirmados" class="link-button"><i class="fas fa-users"></i> Ver Confirmados</a>
+            <a href="#o-que-levar" class="link-button"><i class="fas fa-suitcase-rolling"></i> O Que Levar</a>
+            <a href="#local" class="link-button"><i class="fas fa-map-marker-alt"></i> Local do Evento</a>
+            <a href="#agradecimentos" class="link-button"><i class="fas fa-heart"></i> Agradecimentos</a>
+            <a href="#contato" class="link-button"><i class="fas fa-comments"></i> Fale Conosco</a>
         </main>
 
         <section id="confirmar-presenca" class="content-section">
             <h2>Confirmação de Presença</h2>
-            <p class="centered">Por favor, preencha os dados abaixo para nos ajudar na organização do nosso café da manhã comunitário. Sua participação é muito importante!</p>
-            
+            <p class="centered">Por favor, preencha os dados abaixo para nos ajudar na organização. Sua participação é muito importante!</p>
             <div id="form-message"></div>
-
             <form id="confirmacao-form">
                 <div class="form-group">
                     <label for="nome">Seu Nome Completo:</label>
@@ -97,23 +80,23 @@
             <div class="checklist-container">
                 <div class="checklist-category">
                     <h3><i class="fas fa-bed"></i> Para o Pernoite</h3>
-                    <ul>
-                        <li><i class="fas fa-tshirt"></i> Roupa de cama (lençol, cobertor, travesseiro)</li>
-                        <li><i class="fas fa-user-friends"></i> Colchão inflável ou colchonete</li>
-                        <li><i class="fas fa-bath"></i> Itens de higiene pessoal (toalha, escova de dentes, sabonete)</li>
-                        <li><i class="fas fa-pills"></i> Medicamentos de uso pessoal</li>
-                        <li><i class="fas fa-lightbulb"></i> Lanterna</li>
-                    </ul>
+                    <div class="checklist-items-wrapper">
+                        <div class="checklist-item"><i class="fas fa-tshirt"></i><span>Roupa de cama (lençol, cobertor, travesseiro)</span></div>
+                        <div class="checklist-item"><i class="fas fa-user-friends"></i><span>Colchão inflável ou colchonete</span></div>
+                        <div class="checklist-item"><i class="fas fa-bath"></i><span>Itens de higiene pessoal (toalha, escova de dentes, sabonete)</span></div>
+                        <div class="checklist-item"><i class="fas fa-pills"></i><span>Medicamentos de uso pessoal</span></div>
+                        <div class="checklist-item"><i class="fas fa-lightbulb"></i><span>Lanterna</span></div>
+                    </div>
                 </div>
                 <div class="checklist-category">
                     <h3><i class="fas fa-swimmer"></i> Para a Piscina</h3>
-                    <ul>
-                        <li><i class="fas fa-tshirt"></i> Roupa de banho (maiô, biquíni, sunga)</li>
-                        <li><i class="fas fa-bath"></i> Toalha de piscina</li>
-                        <li><i class="fas fa-sun"></i> Protetor solar</li>
-                        <li><i class="fas fa-hat-cowboy-side"></i> Chapéu ou boné</li>
-                        <li><i class="fas fa-glasses"></i> Chinelo</li>
-                    </ul>
+                    <div class="checklist-items-wrapper">
+                        <div class="checklist-item"><i class="fas fa-tshirt"></i><span>Roupa de banho (maiô, biquíni, sunga)</span></div>
+                        <div class="checklist-item"><i class="fas fa-bath"></i><span>Toalha de piscina</span></div>
+                        <div class="checklist-item"><i class="fas fa-sun"></i><span>Protetor solar</span></div>
+                        <div class="checklist-item"><i class="fas fa-hat-cowboy-side"></i><span>Chapéu ou boné</span></div>
+                        <div class="checklist-item"><i class="fas fa-glasses"></i><span>Chinelo</span></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -125,76 +108,31 @@
                 <p>Rua das Acácias, 123 - Jardim das Flores<br>Sorocaba - SP, CEP 18000-000</p>
                 <p style="font-style: italic; opacity: 0.8;">(Endereço de exemplo, será atualizado em breve)</p>
             </div>
-            
             <div class="map-container">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3659.336224168233!2d-47.46429938502356!3d-23.48419898472054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c58ab4a1e3532f%3A0x33e8b498a9d3651!2sR.%20das%20Ac%C3%A1cias%2C%20123%20-%20Jardim%20das%20Flores%2C%20Sorocaba%20-%20SP%2C%2018071-290!5e0!3m2!1spt-BR!2sbr!4v1668032488888!5m2!1spt-BR!2sbr" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+                <iframe src="https://maps.app.goo.gl/abcdef12345678900" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            
             <p class="centered" style="margin-bottom: 20px;">Escolha seu app preferido para traçar a rota:</p>
             <div class="route-buttons">
-                <a href="https://maps.app.goo.gl/abcdef1234567890" target="_blank" class="map-button google">
-                    <i class="fab fa-google"></i> Google Maps
-                </a>
-                <a href="https://waze.com/ul?q=Rua%20das%20Acácias%20123%20Sorocaba%20SP" target="_blank" class="map-button waze">
-                    <i class="fab fa-waze"></i> Waze
-                </a>
+                <a href="https://maps.app.goo.gl/abcdef12345678901" target="_blank" class="map-button google"><i class="fab fa-google"></i> Google Maps</a>
+                <a href="https://waze.com/ul?q=Rua%20das%20Acácias%20123%20Sorocaba%20SP" target="_blank" class="map-button waze"><i class="fab fa-waze"></i> Waze</a>
             </div>
         </section>
 
-        <section id="galeria" class="content-section">
-            <h2>Galeria de Momentos</h2>
-            <p class="centered">Reviva alguns dos melhores momentos e inspire-se para o próximo Torneio!</p>
-            <div class="gallery-grid">
-                <img src="https://via.placeholder.com/300x300/0F2140/E0B953?text=Torneio+2024" alt="Foto 1">
-                <img src="https://via.placeholder.com/300x300/0F2140/E0B953?text=Equipes" alt="Foto 2">
-                <img src="https://via.placeholder.com/300x300/0F2140/E0B953?text=Gincana" alt="Foto 3">
-                <img src="https://via.placeholder.com/300x300/0F2140/E0B953?text=Celebração" alt="Foto 4">
-            </div>
-        </section>
-        
         <section id="agradecimentos" class="content-section">
             <h2>Agradecimentos</h2>
-            <p class="centered">
-                Nosso mais profundo obrigado a todos os voluntários, participantes, organizadores e patrocinadores que, com dedicação e fé, tornam o XLV Torneio Bíblico uma realidade e um grande sucesso. Cada gesto de ajuda, cada oração e cada sorriso compartilhado constroem a essência deste evento de união e espiritualidade. Que a graça de Deus ilumine e abençoe a todos por sua generosidade e empenho!
-            </p>
+            <img src="https://via.placeholder.com/400x250/1E2D4F/E0B953?text=Momento+Especial" alt="Momento do Torneio" class="thanks-image">
+            <p class="centered">Nosso mais profundo obrigado a todos que, com dedicação e fé, tornam o XLV Torneio Bíblico uma realidade. Que a graça de Deus ilumine e abençoe a todos por sua generosidade e empenho!</p>
         </section>
 
         <section id="contato" class="content-section">
             <h2>Fale Conosco</h2>
-            <p class="centered">
-                Se você tem alguma pergunta sobre o evento, não hesite em chamar um de nossos coordenadores abaixo. Estamos prontos para ajudar!
-            </p>
+            <p class="centered">Se você tem alguma pergunta, não hesite em chamar um de nossos coordenadores. Estamos prontos para ajudar!</p>
             <div class="coordinators-grid">
-                <div class="coordinator-card">
-                    <img src="imagens/Foto de Laura Caroline.png" alt="Foto de Laura Caroline" class="coordinator-photo">
-                    <h3 class="coordinator-name">Laura Caroline</h3>
-                    <a href="https://wa.me/5515998052453" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Conversar</a>
-                </div>
-                <div class="coordinator-card">
-                    <img src="imagens/Foto de Caio.png" alt="Foto de Caio" class="coordinator-photo">
-                    <h3 class="coordinator-name">Caio</h3>
-                    <a href="https://wa.me/5515991644499" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Conversar</a>
-                </div>
-                <div class="coordinator-card">
-                    <img src="imagens/Foto de Bia.png" alt="Foto de Bia" class="coordinator-photo">
-                    <h3 class="coordinator-name">Bia</h3>
-                    <a href="https://wa.me/5515998163497" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Conversar</a>
-                </div>
-                <div class="coordinator-card">
-                    <img src="imagens/Foto de Manuela.png" alt="Foto de Manuela" class="coordinator-photo">
-                    <h3 class="coordinator-name">Manuela</h3>
-                    <a href="https://wa.me/5515996778367" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Conversar</a>
-                </div>
-                <div class="coordinator-card">
-                    <img src="imagens/Foto de Ana.png" alt="Foto de Ana" class="coordinator-photo">
-                    <h3 class="coordinator-name">Ana</h3>
-                    <a href="https://wa.me/5515996262545" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Conversar</a>
-                </div>
+                <div class="coordinator-card"><img src="imagens/Foto de Laura Caroline.png" alt="Foto de Laura Caroline" class="coordinator-photo"><h3 class="coordinator-name">Laura Caroline</h3><a href="https://wa.me/5515998052453" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Conversar</a></div>
+                <div class="coordinator-card"><img src="imagens/Foto de Caio.png" alt="Foto de Caio" class="coordinator-photo"><h3 class="coordinator-name">Caio</h3><a href="https://wa.me/5515991644499" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Conversar</a></div>
+                <div class="coordinator-card"><img src="imagens/Foto de Bia.png" alt="Foto de Bia" class="coordinator-photo"><h3 class="coordinator-name">Bia</h3><a href="https://wa.me/5515998163497" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Conversar</a></div>
+                <div class="coordinator-card"><img src="imagens/Foto de Manuela.png" alt="Foto de Manuela" class="coordinator-photo"><h3 class="coordinator-name">Manuela</h3><a href="https://wa.me/5515996778367" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Conversar</a></div>
+                <div class="coordinator-card"><img src="imagens/Foto de Ana.png" alt="Foto de Ana" class="coordinator-photo"><h3 class="coordinator-name">Ana</h3><a href="https://wa.me/5515996262545" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Conversar</a></div>
             </div>
         </section>
     </div>
@@ -202,10 +140,8 @@
     <footer>
         <div class="social-links">
             <a href="#" target="_blank"><i class="fab fa-instagram"></i> @xlvtorneiobiblico</a> |
-            <a href="#" target="_blank"><i class="fab fa-instagram"></i> @gruposaluz_</a> |
-            <a href="#" target="_blank"><i class="fab fa-instagram"></i> @santoantoniosorocaba</a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i> @gruposaluz_</a>
         </div>
-        
         <p class="developer-credit">Desenvolvido com <i class="fas fa-heart"></i> por Vinicius Lopes</p>
     </footer>
 
