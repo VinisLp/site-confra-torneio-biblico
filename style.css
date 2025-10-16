@@ -571,20 +571,6 @@ footer {
     background-color: #0F2140;
 }
 
-.col-alergia {
-    grid-column: 1 / -1;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px dashed var(--border-color);
-    font-size: 0.9em;
-    opacity: 0.8;
-    color: #ffc107;
-}
-
-.col-alergia i {
-    margin-right: 5px;
-}
-
 /* Responsividade para a Lista de Confirmados */
 @media (max-width: 600px) {
     .confirmado-header {
@@ -613,9 +599,5 @@ footer {
 
     .col-contribuicao::before {
         content: "Leva: ";
-    }
-
-    .col-alergia {
-        padding-left: 0;
     }
 }
