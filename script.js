@@ -1,160 +1,603 @@
-document.addEventListener('DOMContentLoaded', () => {
+/* ======================================================= */
+/* STYLESHEET COMPLETO E ATUALIZADO                        */
+/* ======================================================= */
 
-    // URL do Google Apps Script (para envio e carregamento de confirmações)
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_MFY7Oj7nyDF4cvLJTXekH87cWryWa9G5OYEe3dsIiQ-4thN3acBmbesaslqhgk-j/exec';
+/* --- 1. Variáveis de Cor e Fontes --- */
+:root {
+    --primary-color: #E0B953;      /* Dourado para títulos, ícones e bordas */
+    --primary-hover: #c9a54a;      /* Dourado mais escuro para hover */
+    --page-background: #0A1931;    /* Azul mais escuro para o fundo da página */
+    --card-background: #1E2D4F;    /* Azul para os cards e botões de navegação */
+    --text-light: #F0F0F0;         /* Texto claro principal */
+    --text-dark: #1E2D4F;          /* Texto escuro (para usar em botões dourados) */
+    --border-color: #33415c;       /* Borda sutil para cards e inputs */
+    --input-background: #0F2140;   /* Fundo para campos de formulário */
+    --shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Sombra mais destacada */
+    --whatsapp-green: #25D366;
+    --google-blue: #4285F4;
+    --waze-blue: #33ccff;
 
-    const form = document.getElementById('confirmacao-form');
-    const messageDiv = document.getElementById('form-message');
-    const confirmadosContainer = document.getElementById('confirmados-container');
+    --font-main: 'Open Sans', sans-serif;
+    --font-headings: 'Merriweather', serif;
+}
 
-    /**
-     * Função para carregar a lista de confirmados
-     */
-    async function loadConfirmacoes() {
-        if (!confirmadosContainer) return;
+/* --- 2. Estilos Globais e de Corpo --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        try {
-            const response = await fetch(SCRIPT_URL);
-            if (!response.ok) {
-                throw new Error('Falha na resposta da rede.');
-            }
-            const data = await response.json();
+html {
+    scroll-behavior: smooth;
+}
 
-            if (!data || data.length === 0) {
-                confirmadosContainer.innerHTML = '<p class="centered">Ainda não há confirmações. Seja o primeiro!</p>';
-                return;
-            }
+body {
+    font-family: var(--font-main);
+    background: radial-gradient(circle at top left, #1A2A47, var(--page-background));
+    background-size: 300% 300%;
+    animation: gradientAnimation 15s ease infinite;
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    line-height: 1.6;
+}
 
-            confirmadosContainer.innerHTML = '';
-            confirmadosContainer.classList.add('confirmados-grid');
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-            // Renderizar cabeçalho
-            const headerHTML = `
-                <div class="confirmado-header">
-                    <div><i class="fas fa-user"></i> Nome</div>
-                    <div><i class="fas fa-calendar-alt"></i> Participação</div>
-                    <div><i class="fas fa-utensils"></i> Contribuição</div>
-                </div>
-            `;
-            confirmadosContainer.innerHTML += headerHTML;
+/* --- 3. Layout Principal e Header --- */
+.container {
+    width: 100%;
+    max-width: 760px;
+    text-align: center;
+}
 
-            // Renderizar itens
-            const itemsHTML = data.map(item => `
-                <div class="confirmado-item-grid">
-                    <div class="col-nome">${item.nome}</div>
-                    <div class="col-dias">${item.dias}</div>
-                    <div class="col-contribuicao">${item.contribuicao}</div>
-                    ${item.alergias && item.alergias.toLowerCase() !== 'nenhuma' 
-                        ? `<div class="col-alergia"><i class="fas fa-exclamation-triangle"></i> ${item.alergias}</div>` 
-                        : ''
-                    }
-                </div>
-            `).join('');
-            confirmadosContainer.innerHTML += itemsHTML;
-        } catch (error) {
-            console.error('Erro ao carregar confirmações:', error);
-            confirmadosContainer.innerHTML = '<p class="centered error-msg">Erro ao carregar confirmações. Tente novamente mais tarde.</p>';
-        }
+header {
+    margin-bottom: 40px;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary-color);
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.profile-picture:hover {
+    transform: scale(1.05);
+}
+
+header h1 {
+    font-family: var(--font-headings);
+    font-size: 2.5em;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+}
+
+header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* --- 4. Botões de Navegação Principal --- */
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.link-button {
+    background-color: var(--card-background);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    text-decoration: none;
+    padding: 20px;
+    border-radius: 14px;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.link-button i {
+    margin-right: 12px;
+    font-size: 1.2em;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+.link-button:hover {
+    background-color: var(--primary-color);
+    color: var(--text-dark);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.link-button:hover i {
+    color: var(--text-dark);
+}
+
+/* --- 5. Seções de Conteúdo (Cards) --- */
+.content-section {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    margin-top: 40px;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: left;
+    box-shadow: var(--shadow);
+}
+
+.content-section h2 {
+    font-family: var(--font-headings);
+    text-align: center;
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.content-section p.centered,
+.address-details p {
+    text-align: center;
+    line-height: 1.8;
+    opacity: 0.95;
+    margin-bottom: 25px;
+    font-size: 1.1em;
+}
+
+/* --- 6. Formulário de Confirmação --- */
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+    font-size: 1.15em;
+}
+
+.form-group textarea,
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background-color: var(--input-background);
+    color: var(--text-light);
+    font-family: var(--font-main);
+    font-size: 1.05em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group textarea:focus,
+.form-group input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    background-color: var(--page-background);
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.radio-label:hover {
+    border-color: var(--primary-color);
+}
+
+.radio-label input[type="radio"] {
+    display: none;
+}
+
+.radio-label span {
+    margin-left: 12px;
+    font-size: 1.05em;
+}
+
+.radio-label .custom-radio {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.radio-label input[type="radio"]:checked + .custom-radio {
+    border-color: var(--primary-color);
+}
+
+.radio-label input[type="radio"]:checked + .custom-radio::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.submit-button {
+    display: inline-block;
+    width: 100%;
+    padding: 18px;
+    background-color: var(--primary-color);
+    color: var(--text-dark);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.3em;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-3px);
+}
+
+.submit-button.success {
+    background-color: var(--whatsapp-green);
+    color: #fff;
+    animation: button-pop 0.3s ease-out;
+}
+
+@keyframes button-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+#form-message .success-msg,
+#form-message .error-msg {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid;
+}
+
+#form-message .success-msg {
+    background-color: rgba(37, 211, 102, 0.1);
+    border-color: var(--whatsapp-green);
+    color: var(--whatsapp-green);
+}
+
+#form-message .error-msg {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+/* --- 7. Checklist ("O Que Levar") --- */
+.checklist-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+
+@media (min-width: 600px) {
+    .checklist-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.checklist-category h3 {
+    font-family: var(--font-headings);
+    font-size: 1.5em;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.checklist-items-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.checklist-item {
+    background-color: var(--page-background);
+    border: 1px solid var(--border-color);
+    padding: 15px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.1em;
+    text-align: left;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.checklist-item:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+}
+
+.checklist-item i {
+    color: var(--primary-color);
+    font-size: 1.2em;
+    width: 25px;
+    text-align: center;
+}
+
+.checklist-item span {
+    flex: 1;
+}
+
+/* --- 8. Seção do Mapa --- */
+.address-details p {
+    margin: 5px 0 25px 0;
+}
+
+.map-container {
+    width: 100%;
+    height: 350px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    margin-bottom: 30px;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.route-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.map-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    font-size: 1.1em;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: #fff;
+}
+
+.map-button.google {
+    background-color: var(--google-blue);
+}
+
+.map-button.waze {
+    background-color: var(--waze-blue);
+}
+
+.map-button:hover {
+    transform: translateY(-3px);
+    opacity: 0.9;
+}
+
+/* --- 9. Seção de Contato (Coordenadores) --- */
+.coordinators-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.coordinator-card {
+    background-color: var(--page-background);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.coordinator-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+}
+
+.coordinator-photo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.coordinator-name {
+    font-family: var(--font-headings);
+    font-size: 1.4em;
+    margin: 0 0 20px 0;
+    color: var(--text-light);
+}
+
+.whatsapp-btn {
+    display: inline-block;
+    background-color: var(--whatsapp-green);
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.whatsapp-btn i {
+    margin-right: 8px;
+}
+
+.whatsapp-btn:hover {
+    background-color: #1DAE54;
+}
+
+/* --- 10. Imagem de Agradecimentos --- */
+.thanks-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
+    border: 2px solid var(--border-color);
+    margin: 30px auto;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* --- 11. Rodapé --- */
+footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 30px;
+    opacity: 0.8;
+    width: 100%;
+    max-width: 680px;
+    border-top: 1px solid var(--border-color);
+}
+
+.social-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    margin: 0 10px;
+    font-size: 1.1em;
+}
+
+.developer-credit {
+    margin-top: 25px;
+    font-size: 0.9em;
+    color: var(--text-light);
+}
+
+.developer-credit .fa-heart {
+    color: var(--primary-color);
+    font-size: 0.9em;
+}
+
+/* --- 12. Responsividade Geral --- */
+@media (max-width: 600px) {
+    .profile-picture {
+        width: 120px;
+        height: 120px;
     }
 
-    /**
-     * Função para mostrar mensagem de sucesso
-     */
-    function showSuccessMessage(message) {
-        messageDiv.innerHTML = `<div class="success-msg"><i class="fas fa-check-circle"></i> ${message}</div>`;
+    header h1 {
+        font-size: 2em;
     }
 
-    /**
-     * Função para mostrar mensagem de erro
-     */
-    function showErrorMessage(message) {
-        messageDiv.innerHTML = `<div class="error-msg"><i class="fas fa-exclamation-circle"></i> ${message}</div>`;
+    .link-button {
+        font-size: 1em;
+        padding: 18px;
     }
 
-    /**
-     * Função para limpar mensagens
-     */
-    function clearMessages() {
-        messageDiv.innerHTML = '';
+    .content-section {
+        padding: 25px;
     }
 
-    /**
-     * Lógica para o envio do formulário
-     */
-    if (form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const submitBtn = e.target.querySelector('.submit-button');
+    .content-section h2 {
+        font-size: 1.8em;
+    }
+}
 
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+/* --- 13. Estilos da Lista de Confirmados em Colunas --- */
+.confirmados-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-            const formData = {
-                nome: document.getElementById('nome').value,
-                dias: document.querySelector('input[name="dias"]:checked').value,
-                contribuicao: document.querySelector('input[name="contribuicao"]:checked').value,
-                alergias: document.getElementById('alergias').value.trim() || 'Nenhuma',
-            };
+.confirmado-header {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    gap: 15px;
+    padding: 10px 15px;
+    font-weight: bold;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    text-align: left;
+}
 
-            try {
-                await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
+.confirmado-item-grid {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    gap: 15px;
+    padding: 15px;
+    background-color: var(--page-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-align: left;
+    transition: background-color 0.2s;
+}
 
-                // 1. Mostrar mensagem de sucesso e limpar formulário
-                showSuccessMessage('Presença confirmada com sucesso! Obrigado!');
-                form.reset();
+.confirmado-item-grid:hover {
+    background-color: #0F2140;
+}
 
-                // 2. Animar o botão para o estado de sucesso
-                submitBtn.classList.add('success');
-                submitBtn.innerHTML = '<i class="fas fa-check"></i> Presença Confirmada!';
-
-                // 3. Após um tempo, reverter o botão e carregar a lista
-                setTimeout(() => {
-                    // Reverte o botão ao estado original
-                    submitBtn.classList.remove('success');
-                    submitBtn.innerHTML = 'Confirmar minha Presença';
-                    submitBtn.disabled = false;
-
-                    // Carrega a nova lista de confirmações
-                    loadConfirmacoes();
-
-                    // Limpa a mensagem de sucesso e rola a tela
-                    clearMessages();
-                    document.getElementById('lista-confirmados').scrollIntoView({ behavior: 'smooth' });
-                }, 2500);
-
-            } catch (error) {
-                console.error('Erro ao enviar formulário:', error);
-                showErrorMessage('Erro ao enviar. Tente novamente!');
-                // Reverte o botão imediatamente em caso de erro
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Confirmar minha Presença';
-            }
-        });
+/* Responsividade para a Lista de Confirmados */
+@media (max-width: 600px) {
+    .confirmado-header {
+        display: none;
     }
 
-    /**
-     * Scroll suave para links internos (âncoras)
-     */
-    const internalLinks = document.querySelectorAll('a[href^="#"]');
-    internalLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
+    .confirmado-item-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 20px;
+    }
 
-    // Carrega as confirmações ao iniciar
-    loadConfirmacoes();
+    .confirmado-item-grid div::before {
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-right: 8px;
+    }
 
-    // Recarrega a lista a cada 30 segundos
-    setInterval(loadConfirmacoes, 30000);
-});
+    .col-nome::before {
+        content: "Nome: ";
+    }
+
+    .col-dias::before {
+        content: "Dias: ";
+    }
+
+    .col-contribuicao::before {
+        content: "Leva: ";
+    }
+}
